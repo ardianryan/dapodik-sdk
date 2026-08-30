@@ -35,7 +35,7 @@ Jika Anda menemukan potensi celah keamanan (*vulnerability*) atau kebocoran data
 
 Silakan laporkan secara privat melalui salah satu kanal berikut:
 
-1. **Email Pengembang**: Kontak langsung ke [ryanardian@gmail.com](mailto:ryanardian@gmail.com) atau DM resmi via Instagram [@smansagewithai](https://www.instagram.com/smansagewithai/).
+1. **Email Pengembang**: Kontak langsung ke [inisaya@ardianryan.com](mailto:inisaya@ardianryan.com) atau DM resmi via Instagram [@smansagewithai](https://www.instagram.com/smansagewithai/).
 2. **GitHub Security Advisory**: Gunakan fitur *Report a vulnerability* di tab **Security** repositori GitHub kami.
 
 ### Informasi yang Perlu Disertakan:
