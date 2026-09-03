@@ -36,8 +36,16 @@ export class DapodikClient {
       throw new DapodikError('NPSN wajib diisi berupa string angka (contoh: "12345678")', 'INVALID_CONFIG');
     }
 
+    if (/[\r\n]/.test(config.npsn)) {
+      throw new DapodikError('NPSN tidak boleh mengandung karakter newline (CRLF injection prevention)', 'INVALID_CONFIG');
+    }
+
     if (!config.token || typeof config.token !== 'string') {
       throw new DapodikError('Token WebService wajib diisi', 'INVALID_CONFIG');
+    }
+
+    if (/[\r\n]/.test(config.token)) {
+      throw new DapodikError('Token tidak boleh mengandung karakter newline (CRLF injection prevention)', 'INVALID_CONFIG');
     }
 
     this.npsn = config.npsn.trim();
@@ -65,6 +73,9 @@ export class DapodikClient {
     params: Record<string, any> = {}
   ): Promise<DapodikResponse<T>> {
     const cleanEndpoint = endpoint.replace(/^\/+/, '');
+    if (cleanEndpoint.includes('..') || cleanEndpoint.includes('\\')) {
+      throw new DapodikError('Endpoint tidak valid (path traversal detected)', 'INVALID_ENDPOINT');
+    }
     const url = new URL(`${this.baseUrl}/${cleanEndpoint}`);
 
     // Set NPSN sebagai parameter default
@@ -243,6 +254,9 @@ export class DapodikClient {
     params: Record<string, any> = {}
   ): Promise<DapodikResponse<T>> {
     const cleanEndpoint = endpoint.replace(/^\/+/, '');
+    if (cleanEndpoint.includes('..') || cleanEndpoint.includes('\\')) {
+      throw new DapodikError('Endpoint tidak valid (path traversal detected)', 'INVALID_ENDPOINT');
+    }
     const url = new URL(`${this.baseUrl}/${cleanEndpoint}`);
     url.searchParams.set('npsn', this.npsn);
 
