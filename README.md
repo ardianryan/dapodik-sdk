@@ -289,3 +289,6 @@ Proyek ini dirilis di bawah lisensi **[MIT License with Non-Commercial Restricti
 - 🛡️ [Security Policy & UU PDP](SECURITY.md) - Kebijakan keamanan & kepatuhan perlindungan data pribadi.
 - 🤝 [Contributing Guidelines](CONTRIBUTING.md) - Panduan kontribusi kode dan standar Pull Request.
 - 📜 [Code of Conduct](CODE_OF_CONDUCT.md) - Kode etik komunitas kontributor.
+
+
+<!-- Security scan triggered at 2026-09-04 13:02:37 -->
