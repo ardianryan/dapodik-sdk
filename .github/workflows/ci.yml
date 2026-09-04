@@ -2,28 +2,37 @@ name: CI (Test & Build)
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   test:
+    name: Node.js ${{ matrix.node-version }} - Unit, Feature & Build
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Tests
+      - name: Strict TypeScript Typecheck
+        run: npx tsc --noEmit
+
+      - name: Run Vitest Suite (Unit & Feature Tests)
         run: npm test
 
-      - name: Build Package
+      - name: Build ESM, CJS & DTS Package
         run: npm run build
