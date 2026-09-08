@@ -6,6 +6,15 @@ Format changelog ini mengacu pada [Keep a Changelog](https://keepachangelog.com/
 
 ---
 
+## [1.1.0] - 2026-09-08
+
+### Ditambahkan
+- **Dukungan Endpoint Resmi `/getPrasarana`**:
+  - Tipe data TypeScript `DapodikPrasarana`, `DapodikBangunan`, dan `DapodikRuang`.
+  - Method `getPrasarana(params?)` dan alias `prasarana(params?)`.
+  - Auto-paginator `fetchAllPrasarana(options)` dan Async Generator stream `iteratePrasarana(limit)`.
+  - Unit tests Vitest lulus 100%.
+
 ## [1.0.0] - 2026-08-30
 
 ### Ditambahkan

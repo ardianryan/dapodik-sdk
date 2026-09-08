@@ -171,9 +171,9 @@ main();
 
 ---
 
-## 📋 5 Endpoint Resmi WebService Dapodik
+## 📋 6 Endpoint Resmi WebService Dapodik
 
-Sesuai dengan spesifikasi resmi Dapodik Kemendikdasmen dan pustaka PHP referensi, berikut adalah 5 endpoint inti yang didukung:
+Sesuai dengan spesifikasi resmi Dapodik Kemendikdasmen dan pengujian langsung ke server Dapodik, berikut adalah 6 endpoint inti yang didukung:
 
 | Endpoint WebService | Method (TypeScript Modern) | Method (PHP Alias) | Return Type | Deskripsi |
 | :--- | :--- | :--- | :--- | :--- |
@@ -182,13 +182,14 @@ Sesuai dengan spesifikasi resmi Dapodik Kemendikdasmen dan pustaka PHP referensi
 | **`/getGtk`** | `client.getGtk(params?)` | `api.gtk()` | `DapodikGtk` | Guru dan Tenaga Kependidikan (GTK) |
 | **`/getRombonganBelajar`** | `client.getRombonganBelajar(params)` | `api.rombel(sem)` | `DapodikRombonganBelajar` | Rombel / rombongan belajar per semester |
 | **`/getPesertaDidik`** | `client.getPesertaDidik(params?)` | `api.pd()` | `DapodikPesertaDidik` | Data seluruh siswa / peserta didik |
+| **`/getPrasarana`** | `client.getPrasarana(params?)` | `api.prasarana()` | `DapodikPrasarana` | Data sarana & prasarana (Tanah, Bangunan & Ruang) |
 | *(Custom Endpoint)* | `client.customRequest(endpoint, params)` | `api.customRequest()` | `any` | Endpoint kustom jika ada modul tambahan |
 
 ---
 
 ## 🔄 Auto-Pagination (Tarik Ribuan Data Otomatis)
 
-Jika sekolah memiliki ribuan siswa atau PTK, gunakan helper otomatis:
+Jika sekolah memiliki ribuan siswa, PTK, atau puluhan gedung/ruang, gunakan helper otomatis:
 
 ```typescript
 // 1. Tarik semua siswa dalam 1 array sekaligus
@@ -202,7 +203,11 @@ const semuaSiswa = await client.fetchAllPesertaDidik({
 
 console.log(`Total seluruh siswa: ${semuaSiswa.length}`);
 
-// 2. Stream / Batching menggunakan Async Generator
+// 2. Tarik semua data sarana & prasarana
+const semuaPrasarana = await client.fetchAllPrasarana({ limit: 50 });
+console.log(`Tanah & Bangunan: ${semuaPrasarana.length}`);
+
+// 3. Stream / Batching menggunakan Async Generator
 for await (const batchSiswa of client.iteratePesertaDidik(100)) {
   console.log(`Memproses batch ${batchSiswa.length} siswa...`);
   // Simpan ke PostgreSQL / MySQL / Supabase di sini

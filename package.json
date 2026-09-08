@@ -1,6 +1,6 @@
 {
   "name": "@smansage/dapodik-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Modern, fully-typed TypeScript/JavaScript SDK untuk WebService Dapodik Kemendikdasmen",
   "homepage": "https://www.instagram.com/smansagewithai/",
   "repository": {
