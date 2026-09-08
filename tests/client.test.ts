@@ -8,13 +8,13 @@ import {
 } from '../src/errors';
 import { fetchAllPages, paginateIterator } from '../src/pagination';
 
-describe('DapodikClient', () => {
-  const sampleConfig = {
-    baseUrl: 'http://192.168.1.50:5774/WebService',
-    npsn: '20300001',
-    token: 'secret-token-12345',
-  };
+const sampleConfig = {
+  baseUrl: 'http://192.168.1.50:5774/WebService',
+  npsn: '20300001',
+  token: 'secret-token-12345',
+};
 
+describe('DapodikClient', () => {
   it('harus memvalidasi npsn dan token saat inisialisasi', () => {
     expect(() => new DapodikClient({ npsn: '', token: 'abc' })).toThrow(DapodikError);
     expect(() => new DapodikClient({ npsn: '123', token: '' })).toThrow(DapodikError);
@@ -248,5 +248,38 @@ describe('Pagination Helpers', () => {
     expect(chunks).toHaveLength(2);
     expect(chunks[0]).toHaveLength(2);
     expect(chunks[1]).toHaveLength(1);
+  });
+
+  it('harus mendukung getPrasarana() dan alias prasarana()', async () => {
+    let requestedUrl = '';
+    const mockFetch = vi.fn().mockImplementation(async (url: string) => {
+      requestedUrl = url;
+      return new Response(JSON.stringify({
+        status: 'success',
+        results: 1,
+        rows: [
+          {
+            id_tanah: 't-1',
+            nama: 'Tanah Sekolah',
+            bangunan: [
+              { id_bangunan: 'b-1', nama: 'Gedung A', ruang: [{ id_ruang: 'r-1', nama: 'Lab Komputer' }] },
+            ],
+          },
+        ],
+      }));
+    });
+
+    const client = new DapodikClient({ ...sampleConfig, fetch: mockFetch });
+    const result = await client.getPrasarana({ page: 1, limit: 10 });
+
+    expect(requestedUrl).toContain('getPrasarana');
+    expect(requestedUrl).toContain('page=1');
+    expect(requestedUrl).toContain('limit=10');
+    expect(result.rows[0].nama).toBe('Tanah Sekolah');
+    expect(result.rows[0].bangunan?.[0].nama).toBe('Gedung A');
+    expect(result.rows[0].bangunan?.[0].ruang?.[0].nama).toBe('Lab Komputer');
+
+    const aliasResult = await client.prasarana();
+    expect(aliasResult.rows[0].id_tanah).toBe('t-1');
   });
 });

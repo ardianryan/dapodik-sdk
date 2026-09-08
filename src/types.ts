@@ -270,3 +270,60 @@ export interface DapodikMatevNilai {
   nama_mata_pelajaran?: string;
   [key: string]: any;
 }
+
+/**
+ * Skema entitas Ruang (Ruang Kelas, Lab, Perpustakaan, Kantor)
+ */
+export interface DapodikRuang {
+  id_ruang?: string;
+  id_bangunan?: string;
+  nama?: string;
+  panjang?: string | number;
+  lebar?: string | number;
+  lantai?: number;
+  kapasitas?: number;
+  jenis_prasarana_id?: number;
+  jenis_prasarana_id_str?: string;
+  [key: string]: any;
+}
+
+/**
+ * Skema entitas Bangunan / Gedung Sekolah
+ */
+export interface DapodikBangunan {
+  id_bangunan?: string;
+  id_tanah?: string;
+  nama?: string;
+  panjang?: string | number;
+  lebar?: string | number;
+  luas_tapak_bangunan?: string | number;
+  jml_lantai?: number;
+  thn_dibangun?: string | number;
+  kepemilikan_sarpras?: string | number;
+  jenis_prasarana_id?: number;
+  jenis_prasarana_id_str?: string;
+  jumlah_ruang?: number;
+  ruang?: DapodikRuang[];
+  [key: string]: any;
+}
+
+/**
+ * Skema entitas Prasarana (Lahan / Tanah Sekolah beserta Bangunan & Ruang)
+ */
+export interface DapodikPrasarana {
+  id_tanah?: string;
+  sekolah_id?: string;
+  nama?: string;
+  no_sertifikat_tanah?: string;
+  panjang?: string | number;
+  lebar?: string | number;
+  luas_lahan_tersedia?: string | number;
+  kepemilikan_sarpras?: string | number;
+  ket_tanah?: string;
+  jenis_prasarana_id?: number;
+  jenis_prasarana_id_str?: string;
+  jumlah_bangunan?: number;
+  bangunan?: DapodikBangunan[];
+  [key: string]: any;
+}
+

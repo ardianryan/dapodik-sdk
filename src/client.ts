@@ -12,6 +12,7 @@ import {
   DapodikRombonganBelajar,
   DapodikAnggotaRombel,
   DapodikPembelajaran,
+  DapodikPrasarana,
 } from './types';
 import {
   DapodikError,
@@ -246,6 +247,13 @@ export class DapodikClient {
   }
 
   /**
+   * Menarik data Prasarana (Tanah, Bangunan, dan Ruang Sekolah)
+   */
+  async getPrasarana(params?: PaginationParams): Promise<DapodikResponse<DapodikPrasarana>> {
+    return this.request<DapodikPrasarana>('getPrasarana', params);
+  }
+
+  /**
    * Mengirim HTTP POST request ke WebService Dapodik (misal: pengiriman nilai rapor)
    */
   async post<T = any>(
@@ -376,6 +384,26 @@ export class DapodikClient {
     );
   }
 
+  /**
+   * Menarik seluruh data Prasarana (Tanah, Bangunan, Ruang) secara otomatis dengan paging
+   */
+  async fetchAllPrasarana(options?: FetchAllOptions): Promise<DapodikPrasarana[]> {
+    return fetchAllPages<DapodikPrasarana>(
+      (page, limit) => this.getPrasarana({ page, limit }),
+      options
+    );
+  }
+
+  /**
+   * Mengembalikan Async Iterator untuk streaming data Prasarana per-halaman
+   */
+  iteratePrasarana(limit: number = 100): AsyncGenerator<DapodikPrasarana[], void, unknown> {
+    return paginateIterator<DapodikPrasarana>(
+      (page, lim) => this.getPrasarana({ page, limit: lim }),
+      limit
+    );
+  }
+
   // =========================================================================
   // PHP SDK Aliases (Kompatibilitas dengan adereksisusanto/dapodik-api-php)
   // =========================================================================
@@ -413,6 +441,13 @@ export class DapodikClient {
    */
   gtk(params?: PaginationParams): Promise<DapodikResponse<DapodikGtk>> {
     return this.getGtk(params);
+  }
+
+  /**
+   * Alias untuk `getPrasarana()` (kompatibel dengan versi PHP `$dapodik->prasarana()`)
+   */
+  prasarana(params?: PaginationParams): Promise<DapodikResponse<DapodikPrasarana>> {
+    return this.getPrasarana(params);
   }
 
   /**
