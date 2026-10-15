@@ -1,10 +1,26 @@
 # Changelog
 
-Semua perubahan penting pada proyek **`@smansage/dapodik-sdk`** akan didokumentasikan di file ini.
+Semua perubahan penting pada proyek **`@ardianryan/dapodik-sdk`** akan didokumentasikan di file ini.
 
 Format changelog ini mengacu pada [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/lang/id/).
 
 ---
+
+## [1.2.0] - 2026-10-15
+
+### Diubah & Ditingkatkan
+- **Migrasi ke GitHub Packages (`npm.pkg.github.com`)**:
+  - Scope paket dialihkan ke `@ardianryan/dapodik-sdk` agar terintegrasi penuh secara native dengan GitHub Packages.
+  - Alur CI/CD rilis (`publish.yml`) kini menggunakan token bawaan GitHub Actions (`secrets.GITHUB_TOKEN`) dengan izin `packages: write`, mengeliminasi kebutuhan secret eksternal (`NPM_TOKEN`) dan meniadakan risiko kebocoran maupun kerumitan rotasi PAT.
+- **Pembaruan Dependensi (*Dependencies Update*)**:
+  - Update `@types/node` ke `^26.6.5`.
+  - Update `tsx` ke `^4.23.15`.
+  - Update `tsup` ke `^8.5.1`.
+  - Pinning stabil `typescript` ke `^5.9.3` dan `vitest` ke `^3.2.7` demi stabilitas penuh pada Node.js 18, 20, dan 22.
+- **Peningkatan Keamanan (Security Hardening)**:
+  - Pembersihan total terhadap berkas workflow eksternal tidak resmi.
+- **Pembaruan Dokumentasi**:
+  - Panduan instalasi berbasis registry GitHub Packages dan konfigurasi `.npmrc`.
 
 ## [1.1.0] - 2026-09-08
 

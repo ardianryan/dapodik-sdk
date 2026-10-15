@@ -2,10 +2,10 @@
   <img src="https://dapo.kemendikdasmen.go.id/assets/logo-dapodik-BZDG7c6h.png" alt="Dapodik Logo" width="140" />
 </p>
 
-<h1 align="center">@smansage/dapodik-sdk</h1>
+<h1 align="center">@ardianryan/dapodik-sdk</h1>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@smansage/dapodik-sdk"><img src="https://img.shields.io/npm/v/@smansage/dapodik-sdk.svg?style=flat-square" alt="npm version" /></a>
+  <a href="https://github.com/ardianryan/dapodik-sdk/packages"><img src="https://img.shields.io/badge/GitHub%20Packages-v1.2.0-blue?logo=github&style=flat-square" alt="GitHub Packages version" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-%3E%3D18.0.0-brightgreen.svg?style=flat-square" alt="Node.js version" /></a>
   <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-Ready-blue.svg?style=flat-square" alt="TypeScript Ready" /></a>
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  Dipublikasikan dan dikelola oleh <b>SMA Negeri 1 Gedeg (<a href="https://www.instagram.com/smansagewithai/">@smansagewithai</a>)</b><br />
+  Dipublikasikan melalui <b>GitHub Packages</b> oleh <b>SMA Negeri 1 Gedeg (<a href="https://www.instagram.com/smansagewithai/">@smansagewithai</a>)</b><br />
   Dikembangkan oleh <b>Ryan Ardian</b>
 </p>
 
@@ -25,7 +25,7 @@
 
 > [!IMPORTANT]
 > ### 📢 Pernyataan Penyangkalan (Disclaimer) & Misi Terbuka
-> **`@smansage/dapodik-sdk` adalah pustaka *Unofficial* (tidak resmi) dan independen.** Pustaka ini dikembangkan sebagai inisiatif komunitas sumber terbuka (*open-source*) oleh **SMA Negeri 1 Gedeg** dan **Ryan Ardian**, tanpa afiliasi langsung secara struktural dengan Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen).
+> **`@ardianryan/dapodik-sdk` adalah pustaka *Unofficial* (tidak resmi) dan independen.** Pustaka ini dikembangkan sebagai inisiatif komunitas sumber terbuka (*open-source*) oleh **SMA Negeri 1 Gedeg** dan **Ryan Ardian**, tanpa afiliasi langsung secara struktural dengan Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen).
 >
 > **Tujuan & Misi Pengembangan**:
 > Pustaka ini lahir atas semangat memajukan transformasi digital dan interoperabilitas sistem pendidikan di Indonesia. Tujuan utamanya adalah **memberdayakan para pengembang perangkat lunak lintas platform dan multi-bahasa pemrograman** (TypeScript, JavaScript, Node.js, PHP, Laravel, Python, dll.) agar dapat mengintegrasikan sistem informasi sekolah, LMS, E-Rapor, presensi cerdas, serta analitik data pendidikan secara lebih cepat, aman, terstandarisasi, dan terbebas dari kompleksitas teknis protokol WebService lokal Dapodik.
@@ -77,20 +77,29 @@ Penggunaan API Dapodik mengakses data entitas dan data pribadi (NIK, NISN, no HP
 
 ---
 
-## 📥 Instalasi
+## 📥 Instalasi via GitHub Packages
 
+Pustaka ini didistribusikan melalui **[GitHub Packages](https://github.com/ardianryan/dapodik-sdk/packages)** (`npm.pkg.github.com`).
+
+### 1. Konfigurasi Registry (`.npmrc`)
+Buat atau tambahkan baris berikut pada berkas `.npmrc` di folder proyek Anda (atau secara global di `~/.npmrc`):
+```ini
+@ardianryan:registry=https://npm.pkg.github.com
+```
+
+### 2. Instalasi Paket
 ```bash
 # npm
-npm install @smansage/dapodik-sdk
-
-# yarn
-yarn add @smansage/dapodik-sdk
+npm install @ardianryan/dapodik-sdk
 
 # pnpm
-pnpm add @smansage/dapodik-sdk
+pnpm add @ardianryan/dapodik-sdk
 
 # bun
-bun add @smansage/dapodik-sdk
+bun add @ardianryan/dapodik-sdk
+
+# yarn
+yarn add @ardianryan/dapodik-sdk
 ```
 
 ---
@@ -112,7 +121,7 @@ bun add @smansage/dapodik-sdk
 ### Gaya 1: Menggunakan `DapodikClient` (Modern TypeScript)
 
 ```typescript
-import { DapodikClient } from '@smansage/dapodik-sdk';
+import { DapodikClient } from '@ardianryan/dapodik-sdk';
 
 const client = new DapodikClient({
   host: '192.168.1.100', // atau baseUrl: 'http://192.168.1.100:5774/WebService'
@@ -149,7 +158,7 @@ main();
 Bagi pengembang yang terbiasa dengan sintaks PHP `new Dapodik()->api($token, $npsn)`:
 
 ```typescript
-import { Dapodik } from '@smansage/dapodik-sdk';
+import { Dapodik } from '@ardianryan/dapodik-sdk';
 
 // Default host 127.0.0.1 dan port 5774
 const dapodik = new Dapodik('192.168.1.100', 5774);
@@ -224,7 +233,7 @@ import {
   DapodikConnectionError,
   DapodikHttpError,
   DapodikError,
-} from '@smansage/dapodik-sdk';
+} from '@ardianryan/dapodik-sdk';
 
 try {
   const data = await client.getSekolah();
@@ -248,7 +257,7 @@ try {
 ### Menggunakan Hono / Express
 ```typescript
 import { Hono } from 'hono';
-import { DapodikClient } from '@smansage/dapodik-sdk';
+import { DapodikClient } from '@ardianryan/dapodik-sdk';
 
 const app = new Hono();
 const dapodik = new DapodikClient({
